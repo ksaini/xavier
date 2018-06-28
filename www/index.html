@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+    <!-- Good default declaration:
+    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+        * Enable inline JS: add 'unsafe-inline' to default-src
+        * Enable eval(): add 'unsafe-eval' to default-src
+    * Create your own at http://cspisawesome.com
+    -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+	 <script src="./js/jquery.min.js"></script>
+	<script src="./assets/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+	<link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+	<link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+	
+    <title>ST. XAVIER</title>
+	 <style>
+body {
+	background-image:url(img/s71.png);
+	background-size: 100% 100%;
+    width: 100%;
+    height: 100%;
+    height: auto !important;
+    min-height:100%;
+	text-transform:inherit;
+	height: 100%;
+}	
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: transparent;
+    color: #444;
+    text-align: center;
+	text-transform:none;
+}
+.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {
+    background-color: #FFF;    
+}
+
+.btn-group.open .dropdown-toggle {
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6)
+}
+
+.btn-group {width: 100%}
+.dropdown-menu {width: 100%;}
+
+.schoolname {
+	color:#22313F;
+	padding-top:10px;
+	margin-bottom:1px;	
+}
+	</style>
+</head>
+
+<body>
+<script>
+//localStorage["sid"]="";
+	if(localStorage["sid"]!=null ){
+		if(localStorage["sid"].length > 0){
+		//TODO: verify here if sid is active and not blocked else logout
+		
+		var sid = localStorage["sid"];
+		document.location = "dashboard.html"
+		}
+	}
+var branch="";	
+</script>
+<form>
+
+    <div class="content">
+        <div class="container-fluid">
+		<div class="card">
+			 <div class="panel-body" style="text-align:center;padding-top:50px;">
+                    <form class="form-horizontal" role="form">
+					<img class=''  src="img/xavier.png" align="center" style="width:85px;" /><br>
+					<p class="schoolname"><b>St. Xavier Public School</b></p>
+                    <div class="form-group"><br>
+                        <!---<label for="inputEmail3" class="col-sm-3 control-label">
+                            Username</label>---->
+                       <!--- <div class="col-sm-9">
+							<div class="dropdown ">
+							<button class="btn btn-sm dropdown-toggle" type="button" style="align:feft;border-color:#ccc;" data-toggle="dropdown" id="branch">Choose Branch
+							<span class="caret"></span></button>
+							<ul class="dropdown-menu" id="sel">
+							<li><a href="#">Alwar</a></li>
+							<li><a href="#">Behror</a></li>
+							
+							</ul>
+						</div>
+						<script>
+							$("#sel a").click(function(e){
+							e.preventDefault(); // cancel the link behaviour
+							branch = $(this).text();
+							
+							//$("#branch").text(branch);
+							document.getElementById("branch").innerHTML = branch + '&nbsp;&nbsp;<span class="caret"></span>';
+							});
+						</script>	
+                        </div><br>---->
+                            <input type="text" class="form-control" id="uname" placeholder="Username" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                       <!----- <label for="inputPassword3" class="col-sm-3 control-label">
+                            Password</label>---->
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control" id="pwd" placeholder="Password" required>
+							<br>
+							
+                    </div>
+                   
+                    <div class="form-group last">
+                        <div class="col-sm-offset-3 col-sm-9" align="center">
+                            <button type="button" onclick='verify()' class="btn btn-success btn-sm">
+                                Sign in</button>
+                                 <button type="reset" onclick='reset()' class="btn btn-warning btn-sm">
+                                Reset</button><br><br>
+								<p id='footer' class="text-muted" style="color:#a94442;font-size:12px;margin-left:3px"></p>
+                        </div><br>
+						
+                    </div>
+					
+                    </form>
+                </div>
+				
+		</div>		
+		</div>	
+		<div class="footer">
+  <p>powered by <b style="color:#E87E04;">GreyBox Software</b></p>
+</div>
+	</div>
+</form>	
+</body>
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/msg.js"></script>
+
+<script async defer type="text/javascript">
+app.initialize();
+branch = "xavier";
+function verify(){
+if(branch.trim().length < 1)
+{
+	document.getElementById("footer").innerHTML = "Select a Branch First.";
+}
+else{	
+	var key = branch.toLowerCase();
+	localStorage["db"] = key;	
+	if(localStorage.getItem("sid")!=null && localStorage.getItem("sid").length > 0)
+		document.location='dashboard.html';
+	else{
+		
+		var sid = verifyUser(document.getElementById('uname').value,document.getElementById('pwd').value,key);
+		if(sid!=null && sid.length >0 && sid.length < 10)
+			localStorage["sid"] = sid;
+		}
+}	
+}
+function verifyUser(u,p,k){
+	var sql = "uname=" + u + "&pswd=" + p + "&key=" + k;
+	var req = new XMLHttpRequest();
+	req.onreadystatechange = function() {
+		if (req.readyState == 4 && req.status == 200) {
+			try {
+				var dataArray=JSON.parse(req.responseText);
+				setdata(dataArray);
+								
+			} catch (e) {
+				console.log("Exception::-"+e.toString());
+			}
+		}
+	};
+	
+	req.open("GET", base_url + "/verifyUser.php?" + sql, true);
+	req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	req.send();
+}
+
+function setdata(data){
+	if(data!=null ){
+			
+			localStorage["sid"] = data["admn"];
+			localStorage["sname"] = data["fname"];
+			localStorage["fname"] = data["fathername"];
+			document.location='dashboard.html';
+		}
+	else
+		document.getElementById("footer").innerHTML = "Username or Password not correct.<br> Please try again.";
+}
+function reset(){
+	document.getElementById('uname').innerHTML = "";
+	document.getElementById('pwd').innerHTML = "";
+	
+	
+
+
+}
+</script>
+
+</html>
