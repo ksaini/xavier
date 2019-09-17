@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <meta name="format-detection" content="telephone=no" />
+      <meta name="msapplication-tap-highlight" content="no" />
+      <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+      <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+      <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+      
+      <script src="./js/jquery.min.js"></script>
+      <script src="./assets/js/bootstrap.min.js"></script>
+	  <link href="assets/css/font-awesome.min.css" rel="stylesheet">
+      <link rel="stylesheet" type="text/css" href="css/index.css" />
+      <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+      <link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+      <title>GreyBox Admin</title>
+      <style>
+	  body {
+	background-image:url(img/s72.png);
+	background-size: 100% 100%;
+    width: 100%;
+    height: 100%;
+    height: auto !important;
+    min-height:100%;
+	
+	height: 100%;
+}	
+body {
+	text-transform:inherit;
+}
+
+.chat
+{
+    list-style: none;
+    margin: 0;
+	padding-left:0px;
+	padding-right:0px;
+    
+	padding-bottom: 10px;
+	border-top: 1px dotted #B3A9A9;
+	
+}
+.chat:first-child{
+	list-style: none;
+    margin: 0;
+	padding-left:0px;
+	padding-right:0px;
+    
+	padding-bottom: 5px;
+	border-top: 1px dotted #B3A9A9;
+}
+
+.chat li
+{
+    margin-bottom: 2px;
+    padding-bottom: 2px;
+    border-bottom: 1px dotted #B3A9A9;
+	background-color:white;
+}
+
+.chat li.left .chat-body
+{
+    margin-left: 60px;
+}
+
+.chat li.right .chat-body
+{
+    margin-right: 60px;
+	
+}
+
+
+.chat li .chat-body p
+{
+    margin: 0;
+	width:100%;
+    color: #777777;
+}
+
+.panel .slidedown .glyphicon, .chat .glyphicon
+{
+    margin-right: 5px;
+}
+
+.notesArea {
+	margin-top:15px;
+    float: left;
+    width: 100%;
+    min-height: 30px;
+    background-image: url(./img/notespageback.png);
+    padding: 0;
+	padding-top: 5px;
+	font-family:Comic Sans MS;
+}
+		
+.navbar-custom{
+	background-color: #34495E;
+}
+a{
+	color:white
+}
+.fc {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+    margin-bottom: 5px;
+}
+.valtext {
+	font-family: 'open_sans','Open Sans',sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+	color: #337ab7;
+	contenteditable = true;
+	box-shadow: none;
+	border-bottom: 0px;
+	border-top: 0px;
+	
+	border-right: 0px;
+	margin-bottom:0px;
+	letter-spacing: 1px;
+}
+.row {padding-left:5px;}
+.marks {
+	padding-top:10px;
+	padding-bottom:10px;
+	border-bottom: 1px dotted #B3A9A9;
+}
+ul > div> a {color:#636972;}
+.trbody{
+	font-family: 'open_sans','Open Sans',sans-serif;	
+	letter-spacing: 1px;
+	font-size:12px;
+	height:30px;
+	font-weight:bold;
+	padding-left: 10px;
+	padding-right: 10px;
+    padding-top: 5px;
+	border: 1px solid #d3d3d3;
+	border-bottom:none;
+	padding-bottom:10px;
+}
+.trhead {
+	background: #337ab7;<!---#4285f4;--->
+	font-family: 'open_sans','Open Sans',sans-serif;	
+	letter-spacing: 1px;
+	color:white;
+	font-size:14px;
+	height:30px;
+	font-weight:bold;
+	border: 1px solid #d3d3d3;
+	margin:-1px;
+	margin-top:-2px;
+}
+td,th {
+	padding:5px;
+	padding-left:20px;
+}
+table {
+	border: 2px solid #d3d3d3;
+}
+tr {
+	border-top: 1px solid #d3d3d3;
+	height:35px;
+}
+tr:nth-child(2){
+	padding-top:15px;
+}
+table {
+	border-color: #337ab7;
+}
+td {
+	border-left: 1px solid #337ab7;
+}
+td:first-child{
+	padding-left:10px;
+	
+}
+      </style>
+   </head>
+   <body >
+     
+         <nav class="navbar navbar-custom navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" style="width:100%;text-align:center;" href="dashboard.html"><i style="position: absolute;left:5px;;" class="fa fa-home" aria-hidden="true"></i> <span>Exams</span></a>
+	 
+    </div>
+    
+  </div>
+</nav>
+       <div class="container">
+    		<div id="menu">	
+			
+			<ul class="chat" id="chat" style="margin-bottom:10px;text-align:center" >
+				<i class="fa fa-spinner fa-spin" style="font-size:24px;color:black;"></i>
+			</ul>
+				
+			</div>
+			
+		</div>	
+	</div>
+</div>	
+		 </div>
+     
+   </body>
+   <script type="text/javascript" src="cordova.js"></script>
+   <script type="text/javascript" src="js/index.js"></script>
+   <script type="text/javascript" src="js/dataTbl.js"></script>
+   <script>
+   var sid = localStorage.getItem("sid");
+   var eid = getParameterByName("id");
+   var tag = getParameterByName("tag");
+   var cid = getParameterByName("cid");
+   
+   
+   if(eid!=undefined)
+		getExams(eid,sid);
+   else
+        getCID(sid);
+	
+   
+   function getExams(eid,sid){
+		getResult(sid,eid,tag,cid);
+		//getData('','','SELECT s.tag, r.marks from s_result_tbl r, s_subjects s where s.id=r.subject and r.sid='+sid+ ' and r.examid='+eid,1,0,104);
+   }
+   
+   function getCID(sid){
+		getData('','','SELECT cid from s_student_tbl where admn='+sid,1,0,101);
+	}
+	
+	function custom(data,p){
+		var d = data;
+		if(p==101){
+			cid = d[0]['cid'];
+			getData('','','SELECT appresultcode from s_class_master where id='+cid,1,0,102);		
+			}
+		else if(p==102){
+			var apprc = d[0]['appresultcode'];
+			var arr = apprc.split(",");
+			var output = "";
+			for (i=0; i<(arr.length-1); i++)
+			{
+				output = output + "'" + arr[i] + "'," ;
+			}
+			output = output + "'" + arr[arr.length-1] + "'" ;
+			getData('','','SELECT id,ename,tag from s_exams_tbl where subid=0 and tag in ( '+output + ')',1,0,103);		
+		}
+        else if(p==103){
+		    var txt = '<div class="row" style="margin-top:85px;background-color:white">';
+			for (i=0; i<d.length; i++){
+				try{
+					txt += '<ul class="chat" id="chat" style="margin-bottom:10px;"><div class="fc valtext"><a href="./exams.html?sid='+sid+'&id='+d[i]['id']+'&tag='+d[i]['tag']+'&cid='+cid+'" ><b>'+ d[i]['ename'] +'</b></a></div></ul>';
+				} catch (e){}
+			}
+			txt += "</div>";
+			document.getElementById("menu").innerHTML = txt;
+		}	
+		else if(p==104){
+		    var total = 0;
+		    var txt = '<div class="row" style="margin-top:85px;">';
+		    txt += '<div class="col-sm-5" style="padding-right:0px;padding-left:0px;"><p class="button btn-primary" style="width: 20%;text-align: center;margin-left: 10px;" onclick="window.history.back();">BACK</p>';
+			txt += '<div class="panel panel-primary" style="background-color:none;  margin-left:10px; margin-right:10px;">';
+			txt += '<ul class="chat"  id="parent_ul" style="background-color:white;" ><div class="row trhead" style="text-align:center;">Result for '+getParameterByName("tag")+'</div>';
+			for (i=0; i<d.length; i++){
+				try{
+					txt += '<ul class="chat" id="chat" ><div class="fc valtext"><span style="width:50%;padding-left:50px;" >'+ d[i]['tag'] +'</span><span style="width:50%;padding-left:50px;" >'+d[i]['marks']+'</span></div></ul>';
+					total += parseFloat(d[i]['marks']);
+				} catch (e){}
+			}
+			txt += '<ul class="chat" id="chat" style="margin-bottom:10px;border-top:1px solid #d3d3d3;"><div class="fc valtext"><span style="width:50%;padding-left:50px;color:#337ab7;" ><b>TOTAL</b></span><span style="width:50%;padding-left:50px;color:#337ab7;" ><b>'+total+'</b></span></div></ul>';
+			//txt += '<ul class="chat" id="chat" style="margin-bottom:10px;border-top:1px solid #d3d3d3;border-bottom:1px solid #d3d3d3;"><div class="fc valtext"><span style="width:50%;padding-left:50px;color:#337ab7;" ><b>RANK</b></span><span style="width:50%;padding-left:50px;color:#337ab7;" ><b>'+ "" +'</b></span></div></ul>';
+			txt += "</div></div></div></ul>";
+			document.getElementById("menu").innerHTML = txt;
+		
+		}
+	}
+	
+		function showExam(){
+			document.getElementById("menu").style.display="none";
+			document.getElementById("exams").style.display="block";
+		}
+		function goback(){
+			document.getElementById("exams").style.display="none";
+			document.getElementById("menu").style.display="block";
+		}
+   </script>
+   
+</html>

@@ -25,7 +25,7 @@
 	<link rel="stylesheet" href="./assets/css/bootstrap.min.css">
 	<link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
 	
-    <title>ST. XAVIER</title>
+    <title>GreyBox Admin</title>
 	 <style>
 body {
 	background-image:url(img/s71.png);
@@ -86,20 +86,14 @@ var branch="";
 		<div class="card">
 			 <div class="panel-body" style="text-align:center;padding-top:50px;">
                     <form class="form-horizontal" role="form">
-					<img class=''  src="img/xavier.png" align="center" style="width:85px;" /><br>
+					<img class=''  src="img/vms.png" align="center" style="width:85px;" /><br>
 					<p class="schoolname"><b>St. Xavier Public School</b></p>
                     <div class="form-group"><br>
                         <!---<label for="inputEmail3" class="col-sm-3 control-label">
                             Username</label>---->
-                       <!--- <div class="col-sm-9">
+                        <div class="col-sm-9">
 							<div class="dropdown ">
-							<button class="btn btn-sm dropdown-toggle" type="button" style="align:feft;border-color:#ccc;" data-toggle="dropdown" id="branch">Choose Branch
-							<span class="caret"></span></button>
-							<ul class="dropdown-menu" id="sel">
-							<li><a href="#">Alwar</a></li>
-							<li><a href="#">Behror</a></li>
 							
-							</ul>
 						</div>
 						<script>
 							$("#sel a").click(function(e){
@@ -110,7 +104,7 @@ var branch="";
 							document.getElementById("branch").innerHTML = branch + '&nbsp;&nbsp;<span class="caret"></span>';
 							});
 						</script>	
-                        </div><br>---->
+                        </div><br>
                             <input type="text" class="form-control" id="uname" placeholder="Username" required>
                         </div>
                     </div>
@@ -151,8 +145,8 @@ var branch="";
 
 <script async defer type="text/javascript">
 app.initialize();
-branch = "xavier";
 function verify(){
+var branch="xavier";
 if(branch.trim().length < 1)
 {
 	document.getElementById("footer").innerHTML = "Select a Branch First.";

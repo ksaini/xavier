@@ -3,7 +3,7 @@ var schoolname= "JSS Public School";
 var address ="Sector 71, Delhi";
 var scn1 = "";
 var base_url = "http://greyboxerp.com/xavier/";
-
+//var base_url = "http://localhost/pgexample/sbsj/www/";
 
 function schoolDetails(data){
 	schoolname = data[0]['name'];
@@ -383,52 +383,51 @@ function getFeeDetails(sid,tilldate,cid,tblBodyId) {
 	
 }
 
-function getResult(tblId,tblHdrId, c,sub,test) {
-	 
-	var c_name = document.getElementById(c).value;
-	var sub_name = document.getElementById(sub).value;
-	var test = document.getElementById(test).value;
+function getResult(sid,id,tag,cid) {
 	
-	
-	var sql = "class=" + c_name +  "&subject=" + sub_name + "&test=" + test;
+	var sql = "sid=" + sid +  "&id=" + id + "&tag=" + tag + "&cid=" + cid;
 	
 	var req = new XMLHttpRequest();
 	req.onreadystatechange = function() {
 		if (req.readyState == 4 && req.status == 200) {
 			try {
 				//alert(req.responseText);
-				var dataArray=JSON.parse(req.responseText);
-				//alert(JSON.stringify(dataArray));
-				
-				var tblElement=document.getElementById(tblId);
-	var tblHeadElement = document.getElementById(tblHdrId);
-	var tbodyData="";
-	var theadData="";
-				
-				theadData += "<th>sid</th>";
-				theadData += "<th>Student Name</th>";
-				theadData += "<th>Marks</th>";
-				theadData += "<th>Max. Marks</th>";
-				
-				
-				for (var i = 0; i < dataArray.length; i++) {
-					tbodyData +="<tr>";
-					tbodyData += "<td>" + dataArray[i]['admn'] + "</td>";
-					tbodyData += "<td>" + dataArray[i]['fname'] + "</td>";
-					if(i===0)
-						tbodyData += "<td  id='result"+i+"' contenteditable='true' tabindex='"+i+1+"' bgcolor='#faffbd' autofocus  onfocusout='verifyMarks(this.innerText,result"+i+")'>" + dataArray[i]['m'] + "</td>";
-					else
-						tbodyData += "<td  id='result"+i+"' contenteditable='true' tabindex='"+i+1+"' bgcolor='#faffbd' onfocusout='verifyMarks(this.innerText,result"+i+")'>" + dataArray[i]['m'] + "</td>";
-					
-					tbodyData += "<td id='resultmx"+i+"' >" + document.getElementById('max').value + "</td>";
-					
-					
-					
-				tbodyData +="</tr>";
+				var d=JSON.parse(req.responseText);
+				var subs = d["subdetail"];
+				var txt = "<table style='width:90%;margin: 0 auto;margin-top:65px;'>";
+				txt += '<caption style="text-align:center"><img src="./img/logo1.png" style="" width="50px"></img>	</caption>';
+				txt += "<caption style='color:#337ab7;padding:2px;'>Class Strength : <b>"+d["st"]+"</b></caption>";
+				txt += "<caption style='color:#337ab7;padding:2px;padding-bottom:10px;'>Test Name : <b>"+tag+"</b></caption>";
+				txt += "<tr class='trhead'><th>Subjects</th><th>Max</th><th>Obtained</th></tr>";
+				for(var i=0;i<subs.length;i++){
+					txt += "<tr><td class='valtext text-uppercase'>" + subs[i]["subject"] + "</td>";
+					txt += "<td id=mx_"+subs[i]["id"]+"></td><td style='font-weight:600;' id=o_"+subs[i]["id"]+"></td>";
+					txt += "</tr>";
 				}
-		
-			tblHeadElement.innerHTML=theadData;
-			tblElement.innerHTML=tbodyData;
+				txt += "<tr style='border-top: 1px solid #337ab7;'><td><b>TOTAL</b></td><td id='totmax'><td class='valtext' style='font-weight:600' id='tot'></td></td></tr>";
+				txt += "<tr style='border-top: 1px solid #337ab7;'><td>PERCENT</td><td id='per' colspan='2'></tr>";
+				txt += "<tr style='border-top: 1px solid #337ab7;'><td>RANK</td><td colspan='2'>"+d["rank"]+"</td></tr>";
+				txt += "</table>";
+				document.getElementById("menu").innerHTML = txt;
+				
+				// Fill Obtained marks
+				var marks = d["marks"];
+				var tot = 0;
+				for(var i=0;i<marks.length;i++){
+					document.getElementById("o_"+marks[i]["id"]).innerHTML = marks[i]["marks"];
+					tot += parseFloat(marks[i]["marks"]);
+				}
+				document.getElementById("tot").innerHTML = tot.toFixed(1);
+				
+				// Fill Max marks
+				var max = d["max"];
+				var totmax = 0;
+				for(var i=0;i<max.length;i++){
+					document.getElementById("mx_"+max[i]["subid"]).innerHTML = max[i]["mm"];
+					totmax += parseFloat(max[i]["mm"]);
+				}
+				document.getElementById("totmax").innerHTML = totmax;
+				document.getElementById("per").innerHTML = "<b> "+((tot/totmax)*100).toFixed(1) + "%</b>";
 				
 			} catch (e) {
 				console.log("Exception::-"+e.toString());
@@ -436,11 +435,9 @@ function getResult(tblId,tblHdrId, c,sub,test) {
 		}
 	};
 	
-	var base_url = document.URL.substr(0,document.URL.lastIndexOf('/'));
-	
-	req.open("POST", base_url + "/searchresult.php", true);
+	req.open("GET", base_url + "/_getSubClass.php?"+sql, true);
 	req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	req.send(sql);
+	req.send();
 	
 }
 
@@ -675,3 +672,44 @@ function endOfLastMonth(){
     return local.toJSON().slice(0,10);
 }
 
+function formatDate(dt){
+	try{
+		var dateObj = new Date(dt);
+		var month = dateObj.getUTCMonth() + 1; //months from 1-12
+		var day = dateObj.getUTCDate();
+		var year = dateObj.getUTCFullYear();
+
+		newdate =  getM(month) + " " + day + ", " + year;
+		return newdate;
+	} catch(e){return dt;}
+}
+
+function getM(m){
+ if(m > 12)
+	m =  m- 12;
+ if(m==1)
+ 	return "Jan";
+ else if(m==2)
+    return "Feb";
+ else if(m==3)
+    return "Mar"; 
+ else if(m==4)
+    return "Apr";  
+ else if(m==5)
+    return "May"; 
+ else if(m==6)
+    return "Jun";   
+ else if(m==7)
+    return "Jul"; 
+ else if(m==8)
+    return "Aug";  
+ else if(m==9)
+    return "Sep";  
+ else if(m==10)
+    return "Oct"; 
+ else if(m==11)
+    return "Nov";
+ else if(m==12)
+    return "Dec";     
+
+}

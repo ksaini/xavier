@@ -140,18 +140,24 @@ a{
    
    <script>
   function custom(data){
-	  var nlist = document.getElementById("notice");	
+	  var nlist = document.getElementById("notice");		  
 	  var txt = "<ul class='chat' id='chat'>";
+	  
 	  for(var i=0; i < data.length; i++){
-		var id = data[i]['id'];
+		var id = parseInt(data[i]['id']);
 		txt += "<li id='dt_"+ id +"' class='clearfix text-muted notesArea' >";
 		txt += "<p style='padding-top:10px;'><label>" + formatDate(data[i]['st_dt']) + "</label></p>";
 		txt += "<p style='margin-left:10px'>"+data[i]['notice']+"<br></p>";
 		if(data[i]['img'].trim().length>0)
 			txt += "<img src='"+data[i]['img']+"' class='img-thumbnail'  alt='Notice Image'  />";
-		txt +="</li>"
+		txt +="</li>";
+		if(id > localStorage["nid"])
+			localStorage["nid"] = id;
+		
 	}
 	nlist.innerHTML = txt + "</ul>";
+	if(data.length==0)
+		nlist.innerHTML = "<ul class='chat' id='chat'><li class='clearfix text-muted notesArea'>No Notices</li></ul>";
 	localStorage.setItem("notice", nlist.innerHTML);
   }
       

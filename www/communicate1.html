@@ -18,6 +18,7 @@
 <style>
 body {
 	text-transform:inherit;
+	
 }
 
 .chat
@@ -26,8 +27,11 @@ body {
     margin: 0;
     padding: 0;
 	background-image:url(img/s72.png);
+	margin-top: 15px;
 }
-
+.panel-body {
+	background-image:url(img/s72.png);
+}
 .chat li
 {
     margin-bottom: 2px;
@@ -72,7 +76,7 @@ body {
 .panel-body
 {
     overflow-y: scroll;
-	min-height: 560px;
+	min-height: 690px;
     height: 100%;
 	padding-top: 50px;
 }
@@ -123,14 +127,14 @@ a{
                 
                 <div class="panel-body">
                     <ul class="chat" id="chat">
-                       
+                       <p class='bg-info' style='padding-left:100px;'>No Chat History</p>
                     </ul>
                 </div>
                 <div class="panel-footer stickyfooter">
-                    <div class="input-group" id="panel-footer">
-                        <input id="btn-input" type="text" style="height:41px;" class="form-control input-sm" placeholder="Type your message here..." />
+                    <div class="input-group" id="panel-footer" style="margin-bottom:3px;">
+                        <input id="btn-input" type="text" style="height:49px;" class="form-control input-sm" placeholder="Type your message here..." />
                         <span class="input-group-btn">
-                            <button class="btn btn-warning btn-sm" id="btn-chat" style="height:42px;" onclick="sendmsg(getSID());">Send</button>
+                            <button class="btn btn-warning btn-sm" id="btn-chat" style="height:49px;" onclick="sendmsg(getSID());">Send</button>
                         </span>
                     </div>
                 </div>

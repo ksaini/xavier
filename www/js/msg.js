@@ -60,6 +60,7 @@ function populateMsg(data){
 		var msgstr = "";
 		var tmp = "";
 		
+		
 		for (var i = 0; i < data.length; i++) {
 			 var color ="55C1E7";
 			
