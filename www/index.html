@@ -116,6 +116,7 @@ var branch="";
 							<br>
 							
                     </div>
+					<div id="debug"></div>
                    
                     <div class="form-group last">
                         <div class="col-sm-offset-3 col-sm-9" align="center">
@@ -146,6 +147,7 @@ var branch="";
 <script async defer type="text/javascript">
 app.initialize();
 function verify(){
+document.getElementById("debug").innerHTML += "Starting Debugging..<br>";
 var branch="xavier";
 if(branch.trim().length < 1)
 {
@@ -153,6 +155,7 @@ if(branch.trim().length < 1)
 }
 else{	
 	var key = branch.toLowerCase();
+	document.getElementById("debug").innerHTML += "key is.."+ key + "<br>";
 	localStorage["db"] = key;	
 	if(localStorage.getItem("sid")!=null && localStorage.getItem("sid").length > 0)
 		document.location='dashboard.html';
@@ -166,10 +169,12 @@ else{
 }
 function verifyUser(u,p,k){
 	var sql = "uname=" + u + "&pswd=" + p + "&key=" + k;
+	document.getElementById("debug").innerHTML += "sql is.."+ sql + "<br>";
 	var req = new XMLHttpRequest();
 	req.onreadystatechange = function() {
 		if (req.readyState == 4 && req.status == 200) {
 			try {
+				document.getElementById("debug").innerHTML += req.responseText;
 				var dataArray=JSON.parse(req.responseText);
 				setdata(dataArray);
 								
