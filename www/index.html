@@ -168,7 +168,6 @@ else{
 }
 function verifyUser(u,p,k){
 	var sql = "uname=" + u + "&pswd=" + p + "&key=" + k;
-	document.getElementById("debug").innerHTML += "sql is.."+ sql + "<br>";
 	var req = new XMLHttpRequest();
 	req.onreadystatechange = function() {
 		document.getElementById("debug").innerHTML += "Receving signals..." + req.readyState + "..." + req.status + "<br>";
@@ -184,10 +183,16 @@ function verifyUser(u,p,k){
 		}
 	};
 	
+	req.onerror = function (e) {
+	document.getElementById("debug").innerHTML += "Error is.."+ req.statusText + "<br>";
+  console.error(req.statusText);
+};
+	
 	req.open("GET", base_url + "/verifyUser.php?" + sql, true);
 	req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	document.getElementById("debug").innerHTML += "Sending request Now.<br>";
 	req.send();
+	req.on
 }
 
 function setdata(data){
