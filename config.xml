@@ -10,7 +10,7 @@
     <content src="index.html" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="android-minSdkVersion" value="16" />
-	<preference name="android-targetSdkVersion" value="28" /> 
+	<preference name="android-targetSdkVersion" value="26" /> 
 	<preference name="AndroidPersistentFileLocation" value="Internal" />
     <plugin name="cordova-plugin-media-capture" source="npm" spec="~1.2.0" />
     <plugin name="cordova-plugin-dialogs" source="npm" spec="~1.2.0" />
