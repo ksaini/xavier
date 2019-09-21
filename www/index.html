@@ -116,8 +116,7 @@ var branch="";
 							<br>
 							
                     </div>
-					<div id="debug"></div>
-                   
+					                   
                     <div class="form-group last">
                         <div class="col-sm-offset-3 col-sm-9" align="center">
                             <button type="button" onclick='verify()' class="btn btn-success btn-sm">
@@ -135,7 +134,7 @@ var branch="";
 		</div>		
 		</div>	
 		<div class="footer">
-  <p>powered by <b style="color:#E87E04;">GreyBox Software</b></p>
+  <p>powered by <b style="color:#E87E04;">GreyBox Software</b> v5</p>
 </div>
 	</div>
 </form>	
@@ -147,7 +146,7 @@ var branch="";
 <script async defer type="text/javascript">
 app.initialize();
 function verify(){
-document.getElementById("debug").innerHTML += "Starting Debugging..<br>";
+
 var branch="xavier";
 if(branch.trim().length < 1)
 {
@@ -170,10 +169,8 @@ function verifyUser(u,p,k){
 	var sql = "uname=" + u + "&pswd=" + p + "&key=" + k;
 	var req = new XMLHttpRequest();
 	req.onreadystatechange = function() {
-		document.getElementById("debug").innerHTML += "Receving signals..." + req.readyState + "..." + req.status + "<br>";
 		if (req.readyState == 4 && req.status == 200) {
 			try {
-				document.getElementById("debug").innerHTML += "Response Text.."+ req.responseText;
 				var dataArray=JSON.parse(req.responseText);
 				setdata(dataArray);
 								
@@ -183,14 +180,9 @@ function verifyUser(u,p,k){
 		}
 	};
 	
-	req.onerror = function (e) {
-	document.getElementById("debug").innerHTML += "Error is.."+ JSON.stringify(req) + "<br>";
-  console.error(req.statusText);
-};
-	
+		
 	req.open("GET", base_url + "/verifyUser.php?" + sql, true);
 	req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	document.getElementById("debug").innerHTML += "Sending request Now.<br>";
 	req.send();
 	
 }
